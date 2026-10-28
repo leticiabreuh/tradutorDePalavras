@@ -1,0 +1,51 @@
+name: Reportar defeito
+description: Relate um problema encontrado no aplicativo.
+title: "[Defeito]: "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Descreva o defeito encontrado no aplicativo Tradutor de Palavras.
+
+  - type: textarea
+    id: problema
+    attributes:
+      label: Descrição do defeito
+      description: O que aconteceu?
+      placeholder: Descreva o problema encontrado.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduzir
+    attributes:
+      label: Como reproduzir
+      description: Quais passos provocam o defeito?
+      placeholder: |
+        1. Abra o aplicativo.
+        2. Acesse a funcionalidade.
+        3. Observe o problema.
+    validations:
+      required: true
+
+  - type: textarea
+    id: esperado
+    attributes:
+      label: Comportamento esperado
+      description: O que deveria acontecer?
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Área afetada
+      options:
+        - Tela inicial
+        - Tradução de palavras
+        - Histórico de traduções
+        - Interface e navegação
+        - Outra
+    validations:
+      required: true
