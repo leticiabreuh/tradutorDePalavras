@@ -1,0 +1,49 @@
+name: Solicitar funcionalidade
+description: Sugira uma nova funcionalidade para o aplicativo.
+title: "[Funcionalidade]: "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Descreva a funcionalidade que você gostaria de adicionar ao aplicativo Tradutor de Palavras.
+
+  - type: input
+    id: funcionalidade
+    attributes:
+      label: Funcionalidade
+      description: Qual funcionalidade você gostaria de adicionar?
+      placeholder: Ex.: Traduzir palavras de outro idioma
+    validations:
+      required: true
+
+  - type: textarea
+    id: problema
+    attributes:
+      label: Problema ou necessidade
+      description: Qual problema essa funcionalidade resolveria?
+      placeholder: Explique o que você precisa.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Área
+      description: Qual parte do aplicativo será afetada?
+      options:
+        - Tela inicial
+        - Tradução de palavras
+        - Histórico de traduções
+        - Interface e navegação
+        - Outra
+    validations:
+      required: true
+
+  - type: textarea
+    id: solucao
+    attributes:
+      label: Solução proposta
+      description: Como você imagina que essa funcionalidade deveria funcionar?
+    validations:
+      required: true
