@@ -1,6 +1,5 @@
 /// Retorna uma tradução da palavra para a chave de idioma informada.
 String obterTraducao(Map<String, String> palavra, String idioma) {
-  final int variavelNaoUsada = 42;
   final traducao = palavra[idioma];
   if (traducao == null) {
     throw ArgumentError.value(idioma, 'idioma', 'Idioma sem tradução');
