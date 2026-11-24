@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:tradutor_palavras/main.dart';
 
 void main() {
-  testWidgets('Deve iniciar mostrando a primeira palavra',
+  testWidgets('inicia mostrando a primeira palavra',
       (WidgetTester tester) async {
     await tester.pumpWidget(const TradutorApp());
 
@@ -10,10 +10,8 @@ void main() {
     expect(find.text('Palavra 1 de 10'), findsOneWidget);
   });
 
-  testWidgets('Deve mostrar as traduções da palavra',
-      (WidgetTester tester) async {
+  testWidgets('mostra as traduções da palavra', (WidgetTester tester) async {
     await tester.pumpWidget(const TradutorApp());
-
     await tester.tap(find.text('Mostrar tradução'));
     await tester.pumpAndSettle();
 
@@ -21,10 +19,8 @@ void main() {
     expect(find.text('Espanhol: Casa'), findsOneWidget);
   });
 
-  testWidgets('Deve avançar para a próxima palavra',
-      (WidgetTester tester) async {
+  testWidgets('avança para a próxima palavra', (WidgetTester tester) async {
     await tester.pumpWidget(const TradutorApp());
-
     await tester.tap(find.text('Próxima'));
     await tester.pumpAndSettle();
 
@@ -32,10 +28,8 @@ void main() {
     expect(find.text('Palavra 2 de 10'), findsOneWidget);
   });
 
-  testWidgets('Deve voltar para a palavra anterior',
-      (WidgetTester tester) async {
+  testWidgets('volta para a palavra anterior', (WidgetTester tester) async {
     await tester.pumpWidget(const TradutorApp());
-
     await tester.tap(find.text('Anterior'));
     await tester.pumpAndSettle();
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tradutor_palavras/traducao.dart';
 
 void main() {
   runApp(const TradutorApp());
@@ -27,63 +28,21 @@ class TelaTradutor extends StatefulWidget {
   const TelaTradutor({super.key});
 
   @override
-  State<TelaTradutor> createState() {
-    return _TelaTradutorState();
-  }
+  State<TelaTradutor> createState() => _TelaTradutorState();
 }
 
 class _TelaTradutorState extends State<TelaTradutor> {
   final List<Map<String, String>> palavras = [
-    {
-      'portugues': 'Casa',
-      'ingles': 'House',
-      'espanhol': 'Casa',
-    },
-    {
-      'portugues': 'Livro',
-      'ingles': 'Book',
-      'espanhol': 'Libro',
-    },
-    {
-      'portugues': 'Cachorro',
-      'ingles': 'Dog',
-      'espanhol': 'Perro',
-    },
-    {
-      'portugues': 'Água',
-      'ingles': 'Water',
-      'espanhol': 'Agua',
-    },
-    {
-      'portugues': 'Escola',
-      'ingles': 'School',
-      'espanhol': 'Escuela',
-    },
-    {
-      'portugues': 'Amigo',
-      'ingles': 'Friend',
-      'espanhol': 'Amigo',
-    },
-    {
-      'portugues': 'Comida',
-      'ingles': 'Food',
-      'espanhol': 'Comida',
-    },
-    {
-      'portugues': 'Janela',
-      'ingles': 'Window',
-      'espanhol': 'Ventana',
-    },
-    {
-      'portugues': 'Coração',
-      'ingles': 'Heart',
-      'espanhol': 'Corazón',
-    },
-    {
-      'portugues': 'Viagem',
-      'ingles': 'Travel',
-      'espanhol': 'Viaje',
-    },
+    {'portugues': 'Casa', 'ingles': 'House', 'espanhol': 'Casa'},
+    {'portugues': 'Livro', 'ingles': 'Book', 'espanhol': 'Libro'},
+    {'portugues': 'Cachorro', 'ingles': 'Dog', 'espanhol': 'Perro'},
+    {'portugues': 'Água', 'ingles': 'Water', 'espanhol': 'Agua'},
+    {'portugues': 'Escola', 'ingles': 'School', 'espanhol': 'Escuela'},
+    {'portugues': 'Amigo', 'ingles': 'Friend', 'espanhol': 'Amigo'},
+    {'portugues': 'Comida', 'ingles': 'Food', 'espanhol': 'Comida'},
+    {'portugues': 'Janela', 'ingles': 'Window', 'espanhol': 'Ventana'},
+    {'portugues': 'Coração', 'ingles': 'Heart', 'espanhol': 'Corazón'},
+    {'portugues': 'Viagem', 'ingles': 'Travel', 'espanhol': 'Viaje'},
   ];
 
   int indiceAtual = 0;
@@ -104,8 +63,7 @@ class _TelaTradutorState extends State<TelaTradutor> {
 
   void palavraAnterior() {
     setState(() {
-      indiceAtual =
-          (indiceAtual - 1 + palavras.length) % palavras.length;
+      indiceAtual = (indiceAtual - 1 + palavras.length) % palavras.length;
       mostrarTraducoes = false;
     });
   }
@@ -123,10 +81,7 @@ class _TelaTradutorState extends State<TelaTradutor> {
         width: double.infinity,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              Color(0xFFFCE7F3),
-              Color(0xFFEDE9FE),
-            ],
+            colors: [Color(0xFFFCE7F3), Color(0xFFEDE9FE)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -138,10 +93,7 @@ class _TelaTradutorState extends State<TelaTradutor> {
             children: [
               const Text(
                 'Português',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.black54,
-                ),
+                style: TextStyle(fontSize: 18, color: Colors.black54),
               ),
               const SizedBox(height: 8),
               Text(
@@ -160,12 +112,12 @@ class _TelaTradutorState extends State<TelaTradutor> {
                     child: Column(
                       children: [
                         Text(
-                          'Inglês: ${palavraAtual['ingles']}',
+                          'Inglês: ${obterTraducao(palavraAtual, 'ingles')}',
                           style: const TextStyle(fontSize: 22),
                         ),
                         const SizedBox(height: 12),
                         Text(
-                          'Espanhol: ${palavraAtual['espanhol']}',
+                          'Espanhol: ${obterTraducao(palavraAtual, 'espanhol')}',
                           style: const TextStyle(fontSize: 22),
                         ),
                       ],

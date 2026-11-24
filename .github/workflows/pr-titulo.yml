@@ -21,7 +21,7 @@ jobs:
         env:
           PR_TITLE: ${{ github.event.pull_request.title }}
         run: |
-          if [[ ! "$PR_TITLE" =~ ^(feat|fix|docs|test|refactor|chore)(\([a-z0-9-]+\))?:\ .+ ]]; then
+          if [[ ! "$PR_TITLE" =~ ^(feat|fix|docs|test|refactor|chore|ci|perf|style|build|revert)(\([a-z0-9-]+\))?!?:\ .+ ]]; then
             echo "Titulo fora do padrao."
             echo "Use: tipo: descricao"
             exit 1

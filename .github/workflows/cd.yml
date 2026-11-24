@@ -1,0 +1,117 @@
+name: CD
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: cd-main
+  cancel-in-progress: false
+
+jobs:
+  preparar:
+    name: Preparar pacote de staging
+    runs-on: ubuntu-latest
+    outputs:
+      versao: ${{ steps.versao.outputs.versao }}
+    steps:
+      - name: Baixar codigo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configurar Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Instalar dependencias
+        working-directory: tradutor_palavras
+        run: flutter pub get
+
+      - name: Analisar codigo
+        working-directory: tradutor_palavras
+        run: flutter analyze
+
+      - name: Executar testes
+        working-directory: tradutor_palavras
+        run: flutter test
+
+      - name: Gerar build Web
+        working-directory: tradutor_palavras
+        run: flutter build web
+
+      - name: Calcular versao
+        id: versao
+        run: node scripts/proxima-versao.mjs >> "$GITHUB_OUTPUT"
+
+      - name: Montar pacote
+        run: |
+          mkdir -p pacote
+          cp -R tradutor_palavras/build/web/. pacote/
+          zip -r "tradutor-palavras-${{ steps.versao.outputs.versao || github.sha }}.zip" pacote
+
+      - name: Preparar notas da Release
+        run: node scripts/notas-release.mjs > notas-release.md
+
+      - name: Guardar pacote candidato
+        uses: actions/upload-artifact@v4
+        with:
+          name: pacote-${{ steps.versao.outputs.versao || github.sha }}
+          path: |
+            tradutor-palavras-${{ steps.versao.outputs.versao || github.sha }}.zip
+            notas-release.md
+          if-no-files-found: error
+          retention-days: 30
+
+  staging:
+    name: Disponibilizar candidato para staging
+    needs: preparar
+    runs-on: ubuntu-latest
+    environment:
+      name: staging
+      url: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+    steps:
+      - name: Registrar pacote candidato
+        run: |
+          echo "O pacote foi gerado uma vez no job preparar e esta disponivel nos artefatos desta execucao."
+          echo "Versao candidata: ${{ needs.preparar.outputs.versao || 'sem versao semantica nova' }}" >> "$GITHUB_STEP_SUMMARY"
+
+  producao:
+    name: Publicar Release de producao
+    needs:
+      - preparar
+      - staging
+    if: needs.preparar.outputs.versao != ''
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: ${{ github.server_url }}/${{ github.repository }}/releases/tag/v${{ needs.preparar.outputs.versao }}
+    steps:
+      - name: Baixar pacote aprovado
+        uses: actions/download-artifact@v4
+        with:
+          name: pacote-${{ needs.preparar.outputs.versao }}
+
+      - name: Criar tag e Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSAO: ${{ needs.preparar.outputs.versao }}
+        run: |
+          gh release create "v$VERSAO" "tradutor-palavras-$VERSAO.zip" \
+            --repo "$GITHUB_REPOSITORY" \
+            --target "$GITHUB_SHA" \
+            --title "v$VERSAO" \
+            --notes-file notas-release.md \
+            --latest
+
+      - name: Registrar producao
+        run: echo "Release v${{ needs.preparar.outputs.versao }} publicada com o pacote produzido e aprovado." >> "$GITHUB_STEP_SUMMARY"

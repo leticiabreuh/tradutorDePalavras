@@ -1,0 +1,54 @@
+name: Mudanca de alto risco (CCM)
+description: Solicite avaliacao e decisao do Comite de Controle de Mudancas.
+title: "[CCM]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Registre o risco, a evidência e como a mudança será revertida antes de iniciar a implementação.
+  - type: textarea
+    id: mudanca
+    attributes:
+      label: Mudanca proposta
+      description: O que será alterado e qual problema resolve?
+    validations:
+      required: true
+  - type: textarea
+    id: risco
+    attributes:
+      label: Risco e impacto
+      description: Quem ou o que pode ser afetado? Qual a gravidade e a probabilidade?
+    validations:
+      required: true
+  - type: textarea
+    id: evidencias
+    attributes:
+      label: Evidencias e verificacoes
+      description: Inclua testes, alertas, dados ou links relevantes para a decisão.
+    validations:
+      required: true
+  - type: textarea
+    id: rollback
+    attributes:
+      label: Plano de rollback
+      description: Cite uma tag existente, por exemplo voltar para v1.0.0 pelo workflow Rollback.
+    validations:
+      required: true
+  - type: dropdown
+    id: decisao
+    attributes:
+      label: Decisao do comite
+      options:
+        - Pendente
+        - Aprovada
+        - Aprovada com ressalvas
+        - Rejeitada
+    validations:
+      required: true
+  - type: textarea
+    id: justificativa
+    attributes:
+      label: Justificativa e responsavel pela decisao
+      description: O par registra aqui a justificativa, condições e data da decisão.
+    validations:
+      required: true
