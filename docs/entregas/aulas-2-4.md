@@ -27,11 +27,12 @@ Este registro separa os arquivos preparados no repositório das evidências que 
 
 ## Aula 4 — Governança
 
-- [x] Dependabot configurado para Pub e GitHub Actions.
+- [x] Dependabot configurado para Pub e GitHub Actions no PR #10; a ativação na `main` depende do merge.
 - [x] Formulário de Issue de mudança de alto risco.
 - [x] Dois ADRs e guia de onboarding.
 - [x] Alertas e atualizações de segurança do Dependabot ativados nas configurações.
-- [ ] PR do Dependabot revisado e tratado: <link>
+- [x] Alertas revisados em 24/11/2026: 0 abertos; grafo da `main` com 24 dependências; nenhum risco específico a aceitar nesta data.
+- [ ] PR do Dependabot revisado e tratado: ainda não há PR; as atualizações de versão só estarão ativas após o merge do PR #10.
 - [ ] Issue CCM com decisão do par e tag real para rollback: <link>
 - [ ] PR de melhoria do onboarding aberto pelo par: <link>
 - [ ] Rastreabilidade da Release `v1.1.0`:

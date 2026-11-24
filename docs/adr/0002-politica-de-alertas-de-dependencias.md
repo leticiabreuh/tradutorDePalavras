@@ -17,6 +17,12 @@ Manter o bloqueio de vulnerabilidades críticas no CI. Ativar alertas e atualiza
 - Bloquear todos os níveis imediatamente: pode impedir atualizações não críticas antes da avaliação de impacto e correção.
 - Ignorar alertas até a próxima release: não oferece acompanhamento contínuo.
 
+## Verificação em 24/11/2026
+
+- A página de alertas do Dependabot na `main` não apresentava alertas abertos; portanto, não há alerta `high` ou `critical` específico aceito nesta data.
+- O grafo de dependências da `main` listava 24 dependências.
+- A tela de atualizações de versão ainda indicava que a configuração não estava ativa na `main`. O arquivo `.github/dependabot.yml` está no PR #10 e só passará a valer após o merge; ainda não há PR do Dependabot para revisar.
+
 ## Consequências
 
 - PRs com vulnerabilidades críticas falham no job de revisão de dependências.
