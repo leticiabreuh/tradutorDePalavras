@@ -21,7 +21,8 @@ Manter o bloqueio de vulnerabilidades críticas no CI. Ativar alertas e atualiza
 
 - A página de alertas do Dependabot na `main` não apresentava alertas abertos; portanto, não há alerta `high` ou `critical` específico aceito nesta data.
 - O grafo de dependências da `main` listava 24 dependências.
-- A tela de atualizações de versão ainda indicava que a configuração não estava ativa na `main`. O arquivo `.github/dependabot.yml` está no PR #10 e só passará a valer após o merge; ainda não há PR do Dependabot para revisar.
+- A configuração `.github/dependabot.yml` foi incorporada à `main` pelo PR #10.
+- O PR #11 do Dependabot atualiza `cupertino_icons` de 1.0.9 para 2.0.0. A revisão de dependências da CI não apontou vulnerabilidades, problemas de licença ou de Scorecard; o PR aguarda revisão do par antes do merge.
 
 ## Consequências
 
