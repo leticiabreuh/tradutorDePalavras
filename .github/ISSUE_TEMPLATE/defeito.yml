@@ -1,18 +1,22 @@
 name: Reportar defeito
 description: Relate um problema encontrado no aplicativo.
 title: "[Defeito]: "
+labels: []
 body:
   - type: markdown
     attributes:
-      value: Descreva o comportamento observado e como reproduzi-lo.
+      value: |
+        Descreva o defeito encontrado no aplicativo Tradutor de Palavras.
+
   - type: textarea
     id: problema
     attributes:
-      label: Descricao do defeito
+      label: Descrição do defeito
       description: O que aconteceu?
       placeholder: Descreva o problema encontrado.
     validations:
       required: true
+
   - type: textarea
     id: reproduzir
     attributes:
@@ -24,6 +28,7 @@ body:
         3. Observe o problema.
     validations:
       required: true
+
   - type: textarea
     id: esperado
     attributes:
@@ -31,14 +36,16 @@ body:
       description: O que deveria acontecer?
     validations:
       required: true
+
   - type: dropdown
     id: area
     attributes:
-      label: Area afetada
+      label: Área afetada
       options:
         - Tela inicial
-        - Traducao de palavras
-        - Interface e navegacao
+        - Tradução de palavras
+        - Histórico de traduções
+        - Interface e navegação
         - Outra
     validations:
       required: true
