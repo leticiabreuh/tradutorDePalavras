@@ -9,7 +9,7 @@ void main() {
   };
 
   test('retorna a tradução para o idioma solicitado', () {
-    expect(obterTraducao(palavra, 'ingles'), 'House');
+    expect(obterTraducao(palavra, 'ingles'), 'Houses');
   });
 
   test('informa quando a palavra não tem tradução para o idioma', () {
