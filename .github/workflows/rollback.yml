@@ -1,0 +1,45 @@
+name: Rollback
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Tag de uma Release existente para voltar a marcar como versao oficial (ex.: v1.0.0)
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  rollback:
+    name: Restaurar baseline oficial
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: ${{ github.server_url }}/${{ github.repository }}/releases/tag/${{ inputs.tag }}
+    steps:
+      - name: Validar Release de destino
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ inputs.tag }}
+        run: |
+          if [[ ! "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Informe uma tag SemVer existente, como v1.0.0."
+            exit 1
+          fi
+          gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null
+
+      - name: Reapontar Latest sem recompilar
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ inputs.tag }}
+        run: gh release edit "$TAG" --repo "$GITHUB_REPOSITORY" --latest
+
+      - name: Registrar auditoria do rollback
+        env:
+          TAG: ${{ inputs.tag }}
+          SOLICITANTE: ${{ github.actor }}
+        run: |
+          echo "Rollback aprovado para $TAG. Solicitante: $SOLICITANTE." >> "$GITHUB_STEP_SUMMARY"
+          echo "A Release selecionada volta a ser a baseline oficial; nenhum build foi executado." >> "$GITHUB_STEP_SUMMARY"

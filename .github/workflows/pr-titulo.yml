@@ -1,0 +1,29 @@
+name: Validar titulo do PR
+
+on:
+  pull_request:
+    types:
+      - opened
+      - edited
+      - synchronize
+      - reopened
+
+permissions:
+  pull-requests: read
+
+jobs:
+  titulo-pr:
+    name: titulo-pr
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Validar padrao do titulo
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          if [[ ! "$PR_TITLE" =~ ^(feat|fix|docs|test|refactor|chore|ci|perf|style|build|revert)(\([a-z0-9-]+\))?!?:\ .+ ]]; then
+            echo "Titulo fora do padrao."
+            echo "Use: tipo: descricao"
+            exit 1
+          fi
+          echo "Titulo valido."

@@ -1,0 +1,28 @@
+name: Solicitar funcionalidade
+description: Proponha uma melhoria para o Tradutor de Palavras.
+title: "[Funcionalidade]: "
+body:
+  - type: markdown
+    attributes:
+      value: Explique a necessidade e como saberemos que a melhoria ficou pronta.
+  - type: textarea
+    id: necessidade
+    attributes:
+      label: Necessidade
+      description: Que problema ou necessidade esta proposta atende?
+    validations:
+      required: true
+  - type: textarea
+    id: proposta
+    attributes:
+      label: Solucao proposta
+      description: Descreva o comportamento esperado.
+    validations:
+      required: true
+  - type: textarea
+    id: aceite
+    attributes:
+      label: Criterios de aceite
+      description: Como validar que a funcionalidade está concluída?
+    validations:
+      required: true
