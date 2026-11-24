@@ -6,18 +6,18 @@ Este registro separa os arquivos preparados no repositório das evidências que 
 
 - [x] Workflow de CI, análise, testes, cobertura e build.
 - [x] Validação de título Conventional Commits.
-- [ ] PR de CI mesclado: <link>
+- [ ] PR de CI mesclado: https://github.com/leticiabreuh/tradutorDePalavras/pull/10 (aguardando aprovação)
 - [x] Check de título inválido: https://github.com/leticiabreuh/tradutorDePalavras/actions/runs/45392065391
 - [x] Check de lint falho intencionalmente: https://github.com/leticiabreuh/tradutorDePalavras/actions/runs/45392290061
 - [x] Check de teste falho intencionalmente: https://github.com/leticiabreuh/tradutorDePalavras/actions/runs/45392602937
 - [x] `ci-ok` e `titulo-pr` configurados como checks obrigatórios na `main`.
-- [ ] PR revisado no repositório do par: <link>
+- [ ] PR revisado e aprovado por IzaSouza09: https://github.com/leticiabreuh/tradutorDePalavras/pull/10 (revisão solicitada; aguardando)
 
 ## Aula 3 — Entrega contínua
 
 - [x] Workflow de CD e script de versão SemVer.
 - [x] Workflow manual de rollback.
-- [ ] Environment `production` configurado com revisora obrigatória (falta selecionar a pessoa parceira).
+- [x] Environment `production` configurado com IzaSouza09 como revisora obrigatória; autoaprovação impedida.
 - [ ] Release `v1.0.0`: <link>
 - [ ] Release `v1.0.1`: <link>
 - [ ] Release `v1.1.0`: <link>
