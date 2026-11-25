@@ -1,3 +1,4 @@
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tradutor_palavras/main.dart';
 
@@ -36,6 +37,22 @@ void main() {
 
     expect(find.text('Viagem'), findsOneWidget);
     expect(find.text('Palavra 10 de 10'), findsOneWidget);
+  });
+
+  testWidgets('permite rolagem quando a altura da tela é pequena', (
+    WidgetTester tester,
+  ) async {
+    tester.view.physicalSize = const Size(320, 380);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    await tester.pumpWidget(const TradutorApp());
+    await tester.tap(find.text('Mostrar tradução'));
+    await tester.pumpAndSettle();
+
+    expect(tester.takeException(), isNull);
+    expect(find.byType(SingleChildScrollView), findsOneWidget);
   });
 
   testWidgets('alterna e mantém favoritos ao navegar', (
