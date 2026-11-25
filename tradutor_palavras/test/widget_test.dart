@@ -54,4 +54,26 @@ void main() {
     expect(tester.takeException(), isNull);
     expect(find.byType(SingleChildScrollView), findsOneWidget);
   });
+
+  testWidgets('alterna e mantém favoritos ao navegar', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(const TradutorApp());
+
+    await tester.tap(find.byTooltip('Favoritar palavra'));
+    await tester.pumpAndSettle();
+    expect(find.byTooltip('Remover dos favoritos'), findsOneWidget);
+
+    await tester.tap(find.text('Próxima'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Anterior'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Casa'), findsOneWidget);
+    expect(find.byTooltip('Remover dos favoritos'), findsOneWidget);
+
+    await tester.tap(find.byTooltip('Remover dos favoritos'));
+    await tester.pumpAndSettle();
+    expect(find.byTooltip('Favoritar palavra'), findsOneWidget);
+  });
 }

@@ -45,6 +45,15 @@ class _TelaTradutorState extends State<TelaTradutor> {
 
   int indiceAtual = 0;
   bool mostrarTraducoes = false;
+  final Set<String> palavrasFavoritas = {};
+
+  void alternarFavorito(String palavra) {
+    setState(() {
+      if (!palavrasFavoritas.add(palavra)) {
+        palavrasFavoritas.remove(palavra);
+      }
+    });
+  }
 
   void mostrarTraducao() {
     setState(() {
@@ -104,6 +113,18 @@ class _TelaTradutorState extends State<TelaTradutor> {
                         fontSize: 42,
                         fontWeight: FontWeight.bold,
                         color: Color(0xFF4C1D95),
+                      ),
+                    ),
+                    IconButton(
+                      tooltip: palavrasFavoritas.contains(palavraAtual['portugues'])
+                          ? 'Remover dos favoritos'
+                          : 'Favoritar palavra',
+                      onPressed: () => alternarFavorito(palavraAtual['portugues']!),
+                      icon: Icon(
+                        palavrasFavoritas.contains(palavraAtual['portugues'])
+                            ? Icons.star
+                            : Icons.star_border,
+                        color: const Color(0xFF7C3AED),
                       ),
                     ),
                     const SizedBox(height: 30),
