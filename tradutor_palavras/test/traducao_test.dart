@@ -15,4 +15,22 @@ void main() {
   test('informa quando a palavra não tem tradução para o idioma', () {
     expect(() => obterTraducao(palavra, 'frances'), throwsArgumentError);
   });
+
+  test('informa quando a tradução está vazia', () {
+    const palavraComTraducaoVazia = <String, String>{'frances': ''};
+
+    expect(
+      () => obterTraducao(palavraComTraducaoVazia, 'frances'),
+      throwsArgumentError,
+    );
+  });
+
+  test('informa quando a tradução contém apenas espaços', () {
+    const palavraComTraducaoEmBranco = <String, String>{'frances': '   '};
+
+    expect(
+      () => obterTraducao(palavraComTraducaoEmBranco, 'frances'),
+      throwsArgumentError,
+    );
+  });
 }
